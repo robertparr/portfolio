@@ -10,8 +10,8 @@ import com.jrp.portfolio.domain.Holding;
 import com.jrp.portfolio.domain.Transaction;
 import com.jrp.portfolio.repository.converter.MongoHoldingConverter;
 import com.jrp.portfolio.repository.converter.MongoTranscationConverter;
+import com.jrp.portfolio.repository.converter.TransactionConverter;
 import com.jrp.portfolio.repository.model.MongoHolding;
-import com.jrp.portfolio.repository.model.MongoTransaction;
 import com.jrp.portfolio.service.TransactionRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -35,6 +35,7 @@ public class TransactionSummaryMongoRepository implements TransactionRepository 
 
   private final MongoTranscationConverter mongoTranscationConverter = new MongoTranscationConverter();
   private final MongoHoldingConverter mongoHoldingConverter = new MongoHoldingConverter();
+  private final TransactionConverter transactionConverter = new TransactionConverter();
 
   private final TransactionMongoRepository transactionMongoRepository;
   private final MongoTemplate mongoTemplate;
@@ -61,11 +62,14 @@ public class TransactionSummaryMongoRepository implements TransactionRepository 
   }
 
   @Override
-  public Collection<MongoTransaction> get() {
+  public Collection<Transaction> get() {
     log.info("enter get()");
-    var mongoTransactions = transactionMongoRepository.findAll();
+    var mongoTransactions = transactionMongoRepository.findAllByOrderByDateDesc();
     log.info("exit get():: {}", mongoTransactions);
-    return mongoTransactions;
+
+    var transactions = mongoTransactions.stream().map(transactionConverter::convert).collect(Collectors.toList());
+    log.info("exit get():: {}", transactions);
+    return transactions;
   }
 
   @Override

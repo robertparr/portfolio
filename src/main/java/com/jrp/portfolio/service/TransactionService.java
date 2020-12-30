@@ -2,7 +2,6 @@ package com.jrp.portfolio.service;
 
 import com.jrp.portfolio.domain.Holding;
 import com.jrp.portfolio.domain.Transaction;
-import com.jrp.portfolio.repository.model.MongoTransaction;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -36,9 +35,9 @@ public class TransactionService {
     return holdings;
   }
 
-  public Collection<MongoTransaction> get() {
+  public Collection<Transaction> get() {
     log.info("enter getHoldings()");
-    Collection<MongoTransaction> holdings = transactionRepository.get();
+    Collection<Transaction> holdings = transactionRepository.get();
     log.info("exit getHoldings():: {}", holdings);
     return holdings;
   }

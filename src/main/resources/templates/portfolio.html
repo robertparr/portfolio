@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Transactions</title>
+    <title>Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
@@ -11,34 +11,25 @@
     <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-<div th:switch="${transactions}" class="container my-5">
+<div th:switch="${holdings}" class="container my-5">
     <div class="row">
         <div class="col-md-8">
             <h2 th:case="null">No users yet!</h2>
             <div th:case="*">
-                <h2 class="my-5">Transactions</h2>
+                <h2 class="my-5">Portfolio</h2>
                 <table class="table table-striped table-responsive-md">
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Description</th>
                         <th>Symbol</th>
-                        <th>Qty</th>
-                        <th>Debit</th>
-                        <th>Credit</th>
-                        <th>Balance</th>
+                        <th>Quantity</th>
+                        <th>Book Cost</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="transaction : ${transactions}">
-                        <td th:text="${transaction.date}"></td>
-                        <td th:text="${transaction.description}"></td>
-                        <td th:text="${transaction.symbol}"></td>
-                        <td align="right" th:text="${transaction.qty}"></td>
-                        <td align="right" th:text="${#numbers.formatDecimal(transaction.debit, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td align="right" th:text="${#numbers.formatDecimal(transaction.credit, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td align="right" th:text="${#numbers.formatDecimal(transaction.balance, 0, 'COMMA', 2, 'POINT')}"></td>
-
+                    <tr th:each="holding : ${holdings}">
+                        <td th:text="${holding.symbol}"></td>
+                        <td th:text="${holding.quantity}"></td>
+                        <td align="right" th:text="${#numbers.formatDecimal(holding.bookcost, 0, 'COMMA', 2, 'POINT')}"></td>
                     </tr>
                     </tbody>
                 </table>

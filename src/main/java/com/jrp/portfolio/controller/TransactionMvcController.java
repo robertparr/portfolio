@@ -19,4 +19,10 @@ public class TransactionMvcController {
     model.addAttribute("transactions", service.get());
     return "index";
   }
+
+  @GetMapping("/portfolio")
+  public String portfolio(Model model) {
+    model.addAttribute("holdings", service.getHoldings());
+    return "portfolio";
+  }
 }

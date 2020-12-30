@@ -1,7 +1,7 @@
 package com.jrp.portfolio.controller;
 
 import com.jrp.portfolio.domain.Portfolio;
-import com.jrp.portfolio.repository.model.MongoTransaction;
+import com.jrp.portfolio.domain.Transaction;
 import com.jrp.portfolio.service.TransactionService;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class TransactionController {
   private final TransactionService service;
 
   @GetMapping(value = "/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Collection<MongoTransaction> get() {
+  public Collection<Transaction> get() {
     log.info("enter get()");
     return service.get();
   }
